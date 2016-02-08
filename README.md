@@ -18,8 +18,8 @@ Statistics are based on a 70/30 training set split averaged for 50 runs.
 
 ## My Implementation
 #### Naive Bayes
-| Method | Accuracy Avg | Accuracy Std | AUC Avg | AUC Std | Top 5 Features |
-| --- | --- | --- | --- | --- | --- |
+| Method | Accuracy Avg | Accuracy Std | AUC Avg | AUC Std | Top 5 Features (y=spam) | Top 5 Features (y=ham) |
+| --- | --- | --- | --- | --- | --- | --- |
 | Gaussian | 0.80858 | 0.01097 | 0.85702 | 0.00859 | [('650', 1.3194578005115096), ('credit', 1.2579437340153434), ('hpl', 0.94403580562659861), ('people', 0.53731969309462912), ('george', 0.42955498721227592)] | [('credit', 2.2747826086956491), ('font', 1.3878418972332005), ('business', 0.54054545454545522), ('people', 0.5380316205533594), ('over', 0.51667193675889345)] |
 | Multinomial | x | x | x | x | x |
 | Bernoulli | x | x | x | x | x |
