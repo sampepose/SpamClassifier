@@ -1,7 +1,7 @@
-# digit-recognizer
+# spam-classifier
 Classify spambase dataset: https://archive.ics.uci.edu/ml/datasets/Spambase
 
-Accuracy is based on a 70/30 training set split averaged for 50 runs.
+Statistics are based on a 70/30 training set split averaged for 50 runs.
 ## sklearn
 #### Naive Bayes
 | Method | Accuracy Avg | Accuracy Std | AUC Avg | AUC Std | Top 5 Features |
