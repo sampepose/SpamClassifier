@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from load_data import load_data
-from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
+from naiveBayes.naive_bayes import naive_bayes
 from sklearn.grid_search import GridSearchCV
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
@@ -15,10 +15,6 @@ word_labels = ['address', 'all', '3d', 'our', 'over', 'remove', 'internet',
                'data', '415', '85', 'technology', '1999', 'parts', 'pm', 'direct',
                'cs', 'meeting', 'original', 'project', 're', 'edu', 'table', 'conference']
 
-class METHOD:
-    gaussian, multinomial, bernoulli = range(3)
-    
-method = METHOD.gaussian
 iterations = 50
 k = 5
     
@@ -45,7 +41,7 @@ def show_auc(y_true, y_score):
     plt.show()
     
 def top_k_features(k, weights):
-    return sorted(zip(word_labels, weights), key=operator.itemgetter(1))[:k]
+    return sorted(zip(word_labels, weights), reverse=True, key=operator.itemgetter(1))[:k]
 
 scores = []
 roc_auc = []
@@ -58,40 +54,17 @@ for i in range(iterations):
     X_train = X_train[:, 0:48]
     X_test = X_test[:, 0:48]
 
-    if method == METHOD.gaussian:
-        # Gaussian Naive Bayes
-        # This doesn't really make sense here because our features aren't continuous
-        # in a way that is Gaussian, they are percentages. This might be better
-        # for things like number of capital letters.
-        clf = GaussianNB()
-         
-    if method == METHOD.multinomial:
-        # Multinomial Naive Bayes
-        clf = MultinomialNB(alpha=1.0)
-    
-    if method == METHOD.bernoulli:
-        # Bernoulli (multi-variate) Naive Bayes
-        # It doesn't make sense to include features that are inherently differentiated by magnitude,
-        # i.e total number of capital letters. So we should only test on word frequencies.
-        clf = BernoulliNB(alpha=1.0, binarize=0.31) # binarize found via cross validation
-    #    X, y = load_data()
-    #    print(find_hyperparams_bernoulli(clf, X[:, 0:48], y))
+    clf = naive_bayes()
         
     clf.fit(X_train, y_train)
     scores.append(clf.score(X_test, y_test))
     
     fpr, tpr, _ = roc_curve(y_test, clf.predict_proba(X_test)[:, 1])
     roc_auc.append(auc(fpr, tpr))
-    
-    if method == METHOD.gaussian:
-        weights = clf.theta_[1, :]
-    else:
-        weights = clf.feature_log_prob_[1, :]
 
 show_auc(y_test, clf.predict_proba(X_test)[:, 1])
     
 print('Accuracy. Avg: %0.5f, Std: %0.5f' % (np.mean(scores), np.std(scores)))
 print('AUC. Avg: %0.5f, Std: %0.5f' % (np.mean(roc_auc), np.std(roc_auc)))
 print('Top %d features:' % k)
-print(weights.shape)
-print(top_k_features(k, weights))
+print(top_k_features(k, clf.mean[0, :]))

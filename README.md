@@ -17,4 +17,9 @@ Statistics are based on a 70/30 training set split averaged for 50 runs.
 // TODO
 
 ## My Implementation
-// TODO
+#### Naive Bayes
+| Method | Accuracy Avg | Accuracy Std | AUC Avg | AUC Std | Top 5 Features |
+| --- | --- | --- | --- | --- | --- |
+| Gaussian | 0.80858 | 0.01097 | 0.85702 | 0.00859 | ('650', 1.311463539010707), ('credit', 1.272957674655788), ('hpl', 0.90324324324324312), ('people', 0.53365119836817931), ('font', 0.43681285058643571) |
+| Multinomial | x | x | x | x | x |
+| Bernoulli | x | x | x | x | x |
