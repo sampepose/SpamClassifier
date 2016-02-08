@@ -18,7 +18,7 @@ word_labels = ['address', 'all', '3d', 'our', 'over', 'remove', 'internet',
 class METHOD:
     gaussian, multinomial, bernoulli = range(3)
     
-method = METHOD.gaussian
+method = METHOD.bernoulli
 iterations = 50
 k = 5
     
@@ -45,7 +45,7 @@ def show_auc(y_true, y_score):
     plt.show()
     
 def top_k_features(k, weights):
-    return sorted(zip(word_labels, weights), key=operator.itemgetter(1))[:k]
+    return sorted(zip(word_labels, weights), reverse=True, key=operator.itemgetter(1))[:k]
 
 scores = []
 roc_auc = []
@@ -84,14 +84,14 @@ for i in range(iterations):
     roc_auc.append(auc(fpr, tpr))
     
     if method == METHOD.gaussian:
-        weights = clf.theta_[1, :]
+        weights = clf.theta_
     else:
-        weights = clf.feature_log_prob_[1, :]
+        weights = clf.feature_log_prob_
 
 show_auc(y_test, clf.predict_proba(X_test)[:, 1])
     
 print('Accuracy. Avg: %0.5f, Std: %0.5f' % (np.mean(scores), np.std(scores)))
 print('AUC. Avg: %0.5f, Std: %0.5f' % (np.mean(roc_auc), np.std(roc_auc)))
 print('Top %d features:' % k)
-print(weights.shape)
-print(top_k_features(k, weights))
+print(top_k_features(k, weights[0, :]))
+print(top_k_features(k, weights[1, :]))
