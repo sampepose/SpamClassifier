@@ -1,5 +1,5 @@
 from load_data import load_data
-from naive_bayes import GaussianBayes, BernoulliBayes
+from naive_bayes import GaussianBayes, BernoulliBayes, MultinomialBayes
 from sklearn.grid_search import GridSearchCV
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
@@ -16,7 +16,7 @@ word_labels = ['address', 'all', '3d', 'our', 'over', 'remove', 'internet',
 class METHOD:
     gaussian, multinomial, bernoulli = range(3)
 
-method = METHOD.bernoulli
+method = METHOD.multinomial
 iterations = 50
 k = 5
 
@@ -65,7 +65,7 @@ for i in range(iterations):
 
     elif method == METHOD.multinomial:
         # Multinomial Naive Bayes
-        clf = naive_bayes(Method='multinomial')
+        clf = MultinomialBayes()
 
     elif method == METHOD.bernoulli:
         # Bernoulli (multi-variate) Naive Bayes
@@ -81,7 +81,7 @@ for i in range(iterations):
 
 if method == METHOD.gaussian:
     weights = clf._weights
-elif method == METHOD.bernoulli:
+elif method == METHOD.bernoulli or method == METHOD.multinomial:
     weights = np.exp(clf._feature_log_prob)
 
 show_auc(y_test, clf.predict_proba(X_test)[:, 1])
