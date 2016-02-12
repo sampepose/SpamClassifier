@@ -18,7 +18,7 @@ word_labels = ['address', 'all', '3d', 'our', 'over', 'remove', 'internet',
 class METHOD:
     gaussian, multinomial, bernoulli = range(3)
     
-method = METHOD.gaussian
+method = METHOD.bernoulli
 iterations = 50
 k = 5
     
@@ -96,3 +96,4 @@ print('Top %d features:' % k)
 print(clf.classes_)
 print(top_k_features(k, weights[0, :]))
 print(top_k_features(k, weights[1, :]))
+print(weights.shape)
