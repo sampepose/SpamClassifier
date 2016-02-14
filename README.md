@@ -23,3 +23,36 @@ Statistics are based on a 70/30 training set split averaged for 50 runs.
 | Gaussian | 0.80858 | 0.01097 | 0.85702 | 0.00859 | [('650', 1.3194578005115096), ('credit', 1.2579437340153434), ('hpl', 0.94403580562659861), ('people', 0.53731969309462912), ('george', 0.42955498721227592)] | [('credit', 2.2747826086956491), ('font', 1.3878418972332005), ('business', 0.54054545454545522), ('people', 0.5380316205533594), ('over', 0.51667193675889345)] |
 | Multinomial | 0.86884 | 0.00866 | 0.95108 | 0.00528 | [('credit', 0.14393208823250517), ('650', 0.14351229786150893), ('hpl', 0.09480940574430724), ('people', 0.056671145539713377), ('font', 0.048257592687994753)] | [('credit', 0.23500355935145184), ('font', 0.14540852047528446), ('people', 0.056419703295146083), ('over', 0.052507351381355288), ('business', 0.051720856290241896)] |
 | Bernoulli (alpha=1.0, bin=0.31) | 0.87806 | 0.00736 | 0.95719 | 0.00401 | [('credit', 0.10577409242592786), ('people', 0.072504803316816663), ('hpl', 0.069268884619273968), ('font', 0.057033067044190547), ('george', 0.050156739811912252)] | [('credit', 0.1190450352685837), ('font', 0.1069994574064025), ('people', 0.077590884427563678), ('3d', 0.066087900162778032), ('over', 0.065653825284861606)] |
+
+
+## Analysis
+### Naive Bayes
+Three methods of Naive Bayes classifiers were tested: Gaussian distribution, multinomial, and multi-variate Bernoulli. The Gaussian NB assumes that the values of each feature are continuous and distributed normally. In multinomial NB, a document d is modeled as the outcome of |d| independent trials from the vocabulary. Typically, a document is represented as a vector of word counts or word frequencies. The multi-variate Bernoulli NB represents a document as a binary vector over the space of the vocabulary. Each document can be seen as a collection of multiple independent Bernoulli experiments, one for each word in the vocabulary [1].
+<br /><br />
+
+Table 1. Accuracy and AUC for Naive Bayes Methods
+| Method | Accuracy | AUC |
+| --- | --- | --- |
+| Gaussian | 80.800% +/- 0.216% | 84.982% +/- 0.198%
+| Multinomial | 87.230% +/- 0.198% | 95.302% +/- 0.108%
+| Bernoulli | 89.164% +/- 0.146% | 89.164% +/- 0.112%
+
+Table 1 summarizes metrics for each method. Based on accuracy, Bernoulli appears to be the better classifier, however multinomial beats it out based on AUC. This is to be taken with a grain of salt, as a study [2] does not believe "standard auc is a good measure for spam filters, because it is dominated by non-high specificity (ham recall) regions, which are of no interest in practice."
+<br /><br />
+
+Table 2. Multinomial model training with frequency vs binary word occurrence vectors
+| Method | Accuracy | AUC |
+| --- | --- | --- |
+| Frequency | 87.230% +/- 0.198% | 95.302% +/- 0.108% |
+| Binary | 87.954% +/- 0.230% | 95.756% +/- 0.136% |
+
+Previous research [3] inspired a multinomial model to be trained using binary word occurrence vectors instead of frequency vectors. The results in Table 2 show a slight increase in both accuracy and AUC when using a binary word occurrence vector instead of the usual word frequency vector, which is consistent with the findings of [3].
+
+Although [2] demonstrates that the binary multinomial model should yield better results than the Bernoulli model, this did not occur with the given data. This is because the vocabulary is not large enough, as shown from the accuracy results in [3]. I suspect that an increase in vocabulary size would show the multinomial model surpasses the Bernoulli model.  
+
+### References
+[1] A.  McCallum and K.  Nigam, "A comparison of event models for naive bayes text classification", AAAI-98 workshop on learning for text categorization, vol. 752, pp. 41-48, 1998.
+
+[2] V.  Metsis, I.  Androutsopoulos and G.  Paliouras, "Spam Filtering with Naive Bayes – Which Naive Bayes?", in Conference on Email and Anti-Spam, Mountain View, California USA, 2006.
+
+[3] K.  Schneider, "On word frequency information and negative evidence in Naive Bayes text classification", EsTAL, vol. 3230, pp. 474-486, 2004.
