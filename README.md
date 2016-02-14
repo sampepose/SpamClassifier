@@ -31,6 +31,7 @@ Three methods of Naive Bayes classifiers were tested: Gaussian distribution, mul
 <br /><br />
 
 Table 1. Accuracy and AUC for Naive Bayes Methods
+
 | Method | Accuracy | AUC |
 | --- | --- | --- |
 | Gaussian | 80.800% +/- 0.216% | 84.982% +/- 0.198%
@@ -41,6 +42,7 @@ Table 1 summarizes metrics for each method. Based on accuracy, Bernoulli appears
 <br /><br />
 
 Table 2. Multinomial model training with frequency vs binary word occurrence vectors
+
 | Method | Accuracy | AUC |
 | --- | --- | --- |
 | Frequency | 87.230% +/- 0.198% | 95.302% +/- 0.108% |
