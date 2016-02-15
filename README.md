@@ -11,7 +11,9 @@ Statistics are based on a 70/30 training set split averaged for 50 runs.
 | Bernoulli (alpha=1.0, bin=0.31)| 0.89164 | 0.00528 | 0.95017 | 0.00403 | [('credit', -0.62493334953781776), ('people', -1.0074197209180786), ('hpl', -1.0558622403769), ('font', -1.2449217749113739), ('george', -1.3607226493637654)] | [('credit', -0.12910183231238115), ('font', -0.24123449696324872), ('people', -0.55563963955578277), ('over', -0.72801086549656979), ('3d', -0.73629591703067643)] |
 
 #### Decision Trees
-// TODO
+| Method | Accuracy Avg | Accuracy Std | AUC Avg | AUC Std | Top 5 Features |
+| --- | --- | --- | --- | --- | --- |
+| DecisionTreeClassifier(criterion="entropy") | 0.91136 | 0.00758 | 0.91214 | 0.00853 | [('remove', 0.21730246077008433), ('free', 0.1383136780699713), ('hp', 0.078559911850530045), ('money', 0.066369886207552659), ('george', 0.054680657133664989)] |
 
 #### Random Forest
 // TODO
