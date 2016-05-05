@@ -18,6 +18,11 @@ Statistics are based on a 70/30 training set split averaged for 50 runs.
 #### Random Forest
 // TODO
 
+[('free', 0.098474220547133465), ('remove', 0.092541805565311538), ('your', 0.09022347711132328), ('you', 0.061481529787477354), ('000', 0.061045877750548337)]
+Accuracy. Avg: 0.93936, Std: 0.00656
+AUC. Avg: 0.97864, Std: 0.00362
+[Finished in 34.691s]
+
 ## My Implementation
 #### Naive Bayes
 | Method | Accuracy Avg | Accuracy Std | AUC Avg | AUC Std | Top 5 Features (y=ham) | Top 5 Features (y=spam) |
